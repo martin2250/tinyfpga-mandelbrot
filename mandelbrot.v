@@ -31,7 +31,7 @@ module mandelbrot (
 
     wire [N-1:0] z_imag_squared_negative = {~z_imag_squared[N-1], z_imag_squared[N-2:0]};
 
-    wire overflow = z_abs_squared[N-2:0] >= (1 << (Q + 1));
+    wire overflow = z_abs_squared[N-2:0] >= (1 << (Q + 2));
 
     initial begin
         done <= 1;

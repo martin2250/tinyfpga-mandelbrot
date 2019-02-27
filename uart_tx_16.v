@@ -11,12 +11,12 @@
 // Example: 10 MHz Clock, 115200 baud UART
 // (10000000)/(115200) = 87
 
-module uart_tx
+module uart_tx_16
   #(parameter CLKS_PER_BIT = 139)
   (
    input       i_Clock,
    input       i_Tx_DV,
-   input [7:0] i_Tx_Byte,
+   input [15:0] i_Tx_Byte,
    output      o_Tx_Active,
    output reg  o_Tx_Serial,
    output      o_Tx_Done
@@ -30,8 +30,8 @@ module uart_tx
 
   reg [2:0]    r_SM_Main     = 0;
   reg [7:0]    r_Clock_Count = 0;
-  reg [2:0]    r_Bit_Index   = 0;
-  reg [7:0]    r_Tx_Data     = 0;
+  reg [3:0]    r_Bit_Index   = 0;
+  reg [15:0]   r_Tx_Data     = 0;
   reg          r_Tx_Done     = 0;
   reg          r_Tx_Active   = 0;
 
@@ -91,7 +91,7 @@ module uart_tx
                 r_Clock_Count <= 0;
 
                 // Check if we have sent out all bits
-                if (r_Bit_Index < 7)
+                if (r_Bit_Index < 15)
                   begin
                     r_Bit_Index <= r_Bit_Index + 1;
                     r_SM_Main   <= s_TX_DATA_BITS;
