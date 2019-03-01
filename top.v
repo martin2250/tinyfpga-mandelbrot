@@ -3,7 +3,7 @@ module top (
 	output LED,
 	input PIN_13,
 	output PIN_12,
-	output PIN_14,
+	// output PIN_14,
 	output USBPU
 	);
 
@@ -11,7 +11,7 @@ module top (
 	parameter Q = 10;
 	parameter N = 16;
 	parameter NC = 8;
-	parameter UART_DIV = 16;
+	parameter UART_DIV = 32;
 
 	parameter BLOCK_SIZE = 64;
 
@@ -129,8 +129,8 @@ module top (
 							c_real[N-2:0] <= c_real[N-2:0] + c_step[N-2:0];
 						end
 
-						debug_tx_data = {pos_x, pos_y};
-						debug_tx_start <= 1;
+						// debug_tx_data = {pos_x, pos_y};
+						// debug_tx_start <= 1;
 
 						if (state != STATE_IDLE) begin
 							mandelbrot_run <= 1;
@@ -168,11 +168,11 @@ module top (
 		.o_Tx_Active(tx_active)
 		);
 
-	uart_tx_16 #(8) debug_tx(
-		.i_Clock(CLK),
-		.i_Tx_Byte(debug_tx_data),
-		.i_Tx_DV(debug_tx_start),
-		.o_Tx_Serial(PIN_14),
-		.o_Tx_Active(debug_tx_active)
-		);
+	// uart_tx_16 #(8) debug_tx(
+	// 	.i_Clock(CLK),
+	// 	.i_Tx_Byte(debug_tx_data),
+	// 	.i_Tx_DV(debug_tx_start),
+	// 	.o_Tx_Serial(PIN_14),
+	// 	.o_Tx_Active(debug_tx_active)
+	// 	);
 endmodule

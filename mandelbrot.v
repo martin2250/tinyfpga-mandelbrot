@@ -38,24 +38,15 @@ module mandelbrot (
         count <= 0;
     end
 
-    reg run_run = 0;
-    reg run_clk = 1;
-
-    always @ (posedge run) begin
-        run_run <= ~run_run;
-    end
-
     always @ (posedge clk) begin
         if (done) begin
-            if (run_run == run_clk) begin
-                run_clk = ~run_clk;
-                count = 0;
-                z_real = 0;
-                z_imag = 0;
-                done = 0;
+            if (run) begin
+                count <= 0;
+                z_real <= 0;
+                z_imag <= 0;
+                done <= 0;
             end
-        end
-        if (!done) begin
+        end else begin
             if (overflow) begin
                 done <= 1;
             end else begin

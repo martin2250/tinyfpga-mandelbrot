@@ -5,7 +5,7 @@ module tb ();
         $dumpvars(0, tb);
     end
 
-	parameter UART_DIV = 16;
+	parameter UART_DIV = 2;
 
     reg clk;
 
@@ -17,31 +17,31 @@ module tb ();
 		tx_data = 8'h01;
 
 		tx_start = 1;
-		repeat(139) #1 clk = ~clk;
+		repeat(4) #1 clk = ~clk;
 		tx_start = 0;
-		repeat(139 * 20) #1 clk = ~clk;
+		repeat(4 * 20) #1 clk = ~clk;
 
 		tx_data = 0;
 
 		repeat(5) begin
 			tx_start = 1;
-			repeat(139) #1 clk = ~clk;
+			repeat(4) #1 clk = ~clk;
 			tx_start = 0;
-			repeat(139 * 20) #1 clk = ~clk;
+			repeat(4 * 20) #1 clk = ~clk;
 		end
 
 		tx_data = 16;
 
 		tx_start = 1;
-		repeat(139) #1 clk = ~clk;
+		repeat(4) #1 clk = ~clk;
 		tx_start = 0;
-		repeat(139 * 20) #1 clk = ~clk;
+		repeat(4 * 20) #1 clk = ~clk;
 
 		forever #1 clk = ~clk;
     end
 
     initial begin
-        repeat(2000000) @(posedge clk);
+        repeat(100000) @(posedge clk);
         $finish;
     end
 
