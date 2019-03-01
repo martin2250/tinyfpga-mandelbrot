@@ -8,8 +8,8 @@ module top (
 	);
 
 	// actual parameters
-	parameter Q = 10;
-	parameter N = 16;
+	parameter Q = 24;
+	parameter N = 30;
 	parameter NC = 8;
 	parameter UART_DIV = 32;
 
@@ -29,9 +29,9 @@ module top (
 	parameter CMD_RESET = 0;
 	parameter CMD_SEND_BUFFER = 1;
 
-	parameter RX_BUFFER_SIZE = 6;
+	parameter RX_BUFFER_SIZE = 12;
 	reg [7:0] rx_buffer [RX_BUFFER_SIZE-1:0];
-	reg [2:0] rx_index;
+	reg [3:0] rx_index;
 
 	wire rx_ready;
 	wire [7:0] rx_data;
@@ -47,9 +47,9 @@ module top (
 	reg [15:0] debug_tx_data;
 
 	// rx_buffer decode
-	wire [N-1:0] c_real_init = {rx_buffer[0], rx_buffer[1]};
-	wire [N-1:0] c_imag_init = {rx_buffer[2], rx_buffer[3]};
-	wire [N-1:0] c_step = {rx_buffer[4], rx_buffer[5]};
+	wire [N-1:0] c_real_init = {rx_buffer[0][5:0], rx_buffer[1], rx_buffer[2], rx_buffer[3]};
+	wire [N-1:0] c_imag_init = {rx_buffer[4][5:0], rx_buffer[5], rx_buffer[6], rx_buffer[7]};
+	wire [N-1:0] c_step = {rx_buffer[8][5:0], rx_buffer[9], rx_buffer[10], rx_buffer[11]};
 
 	// mandelbrot state
 	reg [N-1:0] c_real = 0;

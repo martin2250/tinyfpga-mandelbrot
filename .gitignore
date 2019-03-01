@@ -3,3 +3,5 @@
 !*.pcf
 !.gitignore
 !*.py
+!img/*
+!*.md
